@@ -1,1 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>StudySphere | Smart Study Planner</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="#">
+        <span class="brand-mark">✦</span>
+        <span>Study<span>Sphere</span></span>
+      </a>
 
+      <nav class="nav-links" aria-label="Main navigation">
+        <a class="active" href="#dashboard">Dashboard</a>
+        <a href="#tasks">My Tasks</a>
+        <a href="#insights">Insights</a>
+      </nav>
+
+      <div class="top-actions">
+        <button id="themeToggle" class="icon-button" aria-label="Toggle dark mode">☾</button>
+        <div class="avatar" title="Student profile">AJ</div>
+      </div>
+    </header>
+
+    <main class="main-content" id="dashboard">
+      <section class="hero">
+        <div>
+          <p class="eyebrow">YOUR PERSONAL STUDY SPACE</p>
+          <h1>Make progress.<br /><span>One task at a time.</span></h1>
+          <p class="hero-text">
+            Organize your schoolwork, track your progress, and keep your goals within reach.
+          </p>
+          <a class="primary-button" href="#tasks">Explore my tasks <span>↗</span></a>
+        </div>
+
+        <div class="hero-orbit" aria-hidden="true">
+          <div class="orbit orbit-one"></div>
+          <div class="orbit orbit-two"></div>
+          <div class="orbit-core">✦</div>
+          <span class="floating-star star-one">✦</span>
+          <span class="floating-star star-two">✧</span>
+          <span class="floating-star star-three">✦</span>
+        </div>
+      </section>
+
+      <section class="stats-grid" aria-label="Study statistics">
+        <article class="stat-card">
+          <div class="stat-icon purple">✓</div>
+          <div>
+            <p>Completed tasks</p>
+            <h2 id="completedCount">0</h2>
+            <small>Keep the momentum going</small>
+          </div>
+        </article>
+        <article class="stat-card">
+          <div class="stat-icon orange">◷</div>
+          <div>
+            <p>Pending tasks</p>
+            <h2 id="pendingCount">0</h2>
+            <small>Small steps still count</small>
+          </div>
+        </article>
+        <article class="stat-card">
+          <div class="stat-icon blue">⚡</div>
+          <div>
+            <p>Completion rate</p>
+            <h2 id="completionRate">0%</h2>
+            <small>Based on your task list</small>
+          </div>
+        </article>
+      </section>
+
+      <section class="content-grid">
+        <div class="panel tasks-panel" id="tasks">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">STAY ORGANIZED</p>
+              <h2>My tasks</h2>
+            </div>
+            <button id="openTaskForm" class="primary-button compact">+ Add task</button>
+          </div>
+
+          <div class="task-toolbar">
+            <div class="filter-tabs" role="group" aria-label="Filter tasks">
+              <button class="filter active" data-filter="all">All</button>
+              <button class="filter" data-filter="pending">Pending</button>
+              <button class="filter" data-filter="completed">Completed</button>
+            </div>
+            <label class="search-box">
+              <span>⌕</span>
+              <input id="searchInput" type="search" placeholder="Search tasks..." />
+            </label>
+          </div>
+
+          <div id="taskList" class="task-list" aria-live="polite"></div>
+          <p id="emptyState" class="empty-state hidden">No tasks found. Your future self approves.</p>
+        </div>
+
+        <aside class="side-column">
+          <div class="panel progress-panel">
+            <div class="panel-heading">
+              <div>
+                <p class="eyebrow">YOUR WEEK</p>
+                <h2>Study progress</h2>
+              </div>
+              <span class="mini-badge">Live</span>
+            </div>
+
+            <div class="progress-ring" id="progressRing">
+              <div class="ring-center">
+                <strong id="ringPercent">0%</strong>
+                <span>complete</span>
+              </div>
+            </div>
+            <p class="center-text">Every finished task brings you closer to your goals.</p>
+            <div class="legend">
+              <span><i class="dot purple-dot"></i> Completed</span>
+              <span><i class="dot gray-dot"></i> Remaining</span>
+            </div>
+          </div>
+
+          <div class="panel quote-panel" id="insights">
+            <span class="quote-mark">“</span>
+            <p id="quoteText">Success is the sum of small efforts, repeated day in and day out.</p>
+            <small>— Your study reminder</small>
+            <button id="newQuote" class="text-button">New reminder ↗</button>
+          </div>
+        </aside>
+      </section>
+    </main>
+
+    <footer>
+      <span>StudySphere © 2026</span>
+      <span>Built for focused learners ✦</span>
+    </footer>
+  </div>
+
+  <dialog id="taskDialog">
+    <form method="dialog" id="taskForm" class="task-form">
+      <div class="dialog-heading">
+        <div>
+          <p class="eyebrow">PLAN AHEAD</p>
+          <h2>Add a new task</h2>
+        </div>
+        <button type="button" id="closeTaskForm" class="close-button" aria-label="Close form">×</button>
+      </div>
+
+      <label for="taskTitle">Task title</label>
+      <input id="taskTitle" name="taskTitle" type="text" placeholder="e.g. Finish HTML laboratory" required />
+
+      <div class="form-row">
+        <div>
+          <label for="taskSubject">Subject</label>
+          <select id="taskSubject">
+            <option>Web Development</option>
+            <option>Information Security</option>
+            <option>Data Structures</option>
+            <option>Database Systems</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div>
+          <label for="taskPriority">Priority</label>
+          <select id="taskPriority">
+            <option value="High">High</option>
+            <option value="Medium" selected>Medium</option>
+            <option value="Low">Low</option>
+          </select>
+        </div>
+      </div>
+
+      <label for="taskDue">Due date</label>
+      <input id="taskDue" type="date" />
+
+      <button class="primary-button submit-button" type="submit">Save task <span>✓</span></button>
+    </form>
+  </dialog>
+
+  <script src="script.js"></script>
+</body>
+</html>
